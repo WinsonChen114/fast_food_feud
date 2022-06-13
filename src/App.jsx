@@ -5,6 +5,7 @@ import "./App.css"
 import Header from "./components/Header/Header.jsx"
 import Instructions from "./components/Instructions/Instructions.jsx"
 import Chip from "./components/Chip/Chip.jsx"
+import NutritionalLabel from "./components/NutritionalLabel/NutritionalLabel.jsx"
 
 // don't move this!
 export const appInfo = {
@@ -24,16 +25,27 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
-  //States for Category
+  //States for Category and restarurant
   const [selectedCategory, setCategory] = React.useState()
+  const [selectedRestaurant, setRestaurant] = React.useState()
+  const [selectedMenuItem, setMenuItem] = React.useState()
 
-
-  const chipOnClick = (category) => {
+  const cateOnClick = (category) => {
     setCategory(category)
+    //console.log(selectedCategory)
   }
 
+  const restOnClick = (restaurant) => {
+    setRestaurant(restaurant)
+    //console.log(selectedRestaurant)
+    //console.log(currentMenuItems.length)
+  }
 
+  const itemOnClick = (item) => {
+    setMenuItem(item.item_name)
+  }
 
+  let currentMenuItems = data.filter((item) => { return item.food_category == selectedCategory && item.restaurant == selectedRestaurant })
 
   return (
     <main className="App">
@@ -42,7 +54,7 @@ export function App() {
         <div className="categories options">
           <h2 className="title">Categories</h2>
           {categories.map((category) => (
-            <Chip label={category} key={category} onClick={() => chipOnClick(category)} isActive = {selectedCategory == category}  />
+            <Chip label={category} key={category} onClick={() => cateOnClick(category)} isActive={selectedCategory == category} />
           ))}
         </div>
       </div>
@@ -56,8 +68,9 @@ export function App() {
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">
             {restaurants.map((restaurant) => (
-              <Chip label={restaurant} key={restaurant} />
-            ))}</div>
+              <Chip label={restaurant} key={restaurant} onClick={() => restOnClick(restaurant)} isActive={selectedRestaurant == restaurant} />
+            ))}
+          </div>
         </div>
 
         <Instructions instructions={appInfo.instructions.start} />
@@ -66,7 +79,9 @@ export function App() {
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
-            {/* YOUR CODE HERE */}
+            {currentMenuItems.map((item) => (
+              <Chip label={item.item_name} key={item.item_description} onClick={() => itemOnClick(item.item_name)} isActive={selectedMenuItem == item.item_name} />
+            ))}
           </div>
 
           {/* NUTRITION FACTS */}
