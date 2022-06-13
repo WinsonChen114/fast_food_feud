@@ -31,21 +31,20 @@ export function App() {
   const [selectedMenuItem, setMenuItem] = React.useState()
 
   const cateOnClick = (category) => {
+    setMenuItem(null)
     setCategory(category)
-    //console.log(selectedCategory)
   }
 
   const restOnClick = (restaurant) => {
+    setMenuItem(null)
     setRestaurant(restaurant)
-    //console.log(selectedRestaurant)
-    //console.log(currentMenuItems.length)
   }
 
   const itemOnClick = (item) => {
-    setMenuItem(item.item_name)
+    setMenuItem(item)
   }
 
-  let currentMenuItems = data.filter((item) => { return item.food_category == selectedCategory && item.restaurant == selectedRestaurant })
+  const currentMenuItems = data.filter((item) => { return item.food_category == selectedCategory && item.restaurant == selectedRestaurant })
 
   return (
     <main className="App">
@@ -80,12 +79,12 @@ export function App() {
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
             {currentMenuItems.map((item) => (
-              <Chip label={item.item_name} key={item.item_description} onClick={() => itemOnClick(item.item_name)} isActive={selectedMenuItem == item.item_name} />
+              <Chip label={item.item_name} key={item.item_description} onClick={() => itemOnClick(item)} isActive={ selectedMenuItem && selectedMenuItem.item_name == item.item_name} />
             ))}
           </div>
 
           {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">{/* YOUR CODE HERE */}</div>
+          <div className="NutritionFacts nutrition-facts">{selectedMenuItem ? <NutritionalLabel item={selectedMenuItem} /> : <></>}</div>
         </div>
 
         <div className="data-sources">
