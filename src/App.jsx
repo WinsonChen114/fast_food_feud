@@ -3,7 +3,8 @@ import * as React from "react"
 import { createDataSet } from "./data/dataset"
 import "./App.css"
 import Header from "./components/Header/Header.jsx"
-import Instructions from "./components/Instructions/Instructions"
+import Instructions from "./components/Instructions/Instructions.jsx"
+import Chip from "./components/Chip/Chip.jsx"
 
 // don't move this!
 export const appInfo = {
@@ -23,14 +24,25 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
+  //States for Category
+  const [selectedCategory, setCategory] = React.useState()
+
+
+  const chipOnClick = (category) => {
+    setCategory(category)
+  }
+
+
+
+
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {categories.map((category, index) => (
-            <p key={index}>{category}</p>
+          {categories.map((category) => (
+            <Chip label={category} key={category} onClick={() => chipOnClick(category)} isActive = {selectedCategory == category}  />
           ))}
         </div>
       </div>
@@ -43,8 +55,8 @@ export function App() {
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">
-            {restaurants.map((restaurant, index) => (
-              <p key={index}>{restaurant}</p>
+            {restaurants.map((restaurant) => (
+              <Chip label={restaurant} key={restaurant} />
             ))}</div>
         </div>
 
