@@ -46,7 +46,6 @@ export function App() {
     setCategory(category)
     instrOnClick()
   }
-
   const restOnClick = (restaurant) => {
     setMenuItem(null)
     restbool = true
@@ -54,10 +53,30 @@ export function App() {
     setRestaurant(restaurant)
     instrOnClick()
   }
-
   const itemOnClick = (item) => {
     itembool = true
     setMenuItem(item)
+    instrOnClick()
+  }
+
+  //Deselecting a Chip
+  const cateClose = () => {
+    catebool = false
+    itembool = false
+    setMenuItem(null)
+    setCategory(null)
+    instrOnClick()
+  }
+  const restClose = () => {
+    restbool = false
+    itembool = false
+    setMenuItem(null)
+    setRestaurant(null)
+    instrOnClick()
+  }
+  const itemClose = () => {
+    itembool = false
+    setMenuItem(null)
     instrOnClick()
   }
 
@@ -90,30 +109,6 @@ export function App() {
       }
     }
   }
-
-  //Deselecting a Chip
-  const cateClose = () => {
-    catebool = false
-    itembool = false
-    setMenuItem(null)
-    setCategory(null)
-    instrOnClick()
-  }
-
-  const restClose = () => {
-    restbool = false
-    itembool = false
-    setMenuItem(null)
-    setRestaurant(null)
-    instrOnClick()
-  }
-
-  const itemClose = () => {
-    itembool = false
-    setMenuItem(null)
-    instrOnClick()
-  }
-
 
   const currentMenuItems = data.filter((item) => { return item.food_category == selectedCategory && item.restaurant == selectedRestaurant })
 
