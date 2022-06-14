@@ -20,7 +20,7 @@ export function NutritionalLabelFact(props) {
   return (
     <li className="nutrition-fact">
       <span className="fact-label">{props.label}</span>{" "}
-      <span className="fact-value">{}</span>
+      <span className="fact-value">{props.item[props.value]}</span>
     </li>
   )
 }
