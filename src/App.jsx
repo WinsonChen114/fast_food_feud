@@ -6,6 +6,9 @@ import Header from "./components/Header/Header.jsx"
 import Instructions from "./components/Instructions/Instructions.jsx"
 import Chip from "./components/Chip/Chip.jsx"
 import NutritionalLabel from "./components/NutritionalLabel/NutritionalLabel.jsx"
+import DataSource from "./components/DataSource/DataSource.jsx"
+import RestaurantsRow from "./components/RestaurantsRow/RestaurantsRow.jsx"
+import CategoryColumn from "./components/CategoryColumn/CategoryColumn"
 
 // don't move this!
 export const appInfo = {
@@ -118,28 +121,14 @@ export function App() {
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
-      <div className="CategoriesColumn col">
-        <div className="categories options">
-          <h2 className="title">Categories</h2>
-          {categories.map((category) => (
-            <Chip label={category} key={category} onClick={() => cateOnClick(category)} close={() => cateClose()} isActive={selectedCategory == category} />
-          ))}
-        </div>
-      </div>
+      <CategoryColumn categories = {categories} onClick={cateOnClick} close={() => cateClose()} selectedCategory = {selectedCategory}/>
 
       {/* MAIN COLUMN */}
       <div className="container">
         <Header title={appInfo.title} tagline={appInfo.tagline} description={appInfo.description} />
 
         {/* RESTAURANTS ROW */}
-        <div className="RestaurantsRow">
-          <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">
-            {restaurants.map((restaurant) => (
-              <Chip label={restaurant} key={restaurant} onClick={() => restOnClick(restaurant)} close={() => restClose()} isActive={selectedRestaurant == restaurant} />
-            ))}
-          </div>
-        </div>
+        <RestaurantsRow restaurants = {restaurants} onClick={restOnClick} close={() => restClose()} selectedRestaurant = {selectedRestaurant}/>
 
         <Instructions instructions={appInfo.instructions[instructionState]} />
 
@@ -156,9 +145,7 @@ export function App() {
           <div className="NutritionFacts nutrition-facts">{selectedMenuItem ? <NutritionalLabel item={selectedMenuItem} /> : <></>}</div>
         </div>
 
-        <div className="data-sources">
-          <p>{appInfo.dataSource}</p>
-        </div>
+        <DataSource dataSource={appInfo.dataSource} />
       </div>
     </main>
   )
