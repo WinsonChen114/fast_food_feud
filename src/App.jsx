@@ -26,88 +26,36 @@ export const appInfo = {
 // or this!
 const { data, categories, restaurants } = createDataSet()
 
-//booleans for instruction state
-let catebool = false
-let restbool = false
-let itembool = false
-
 export function App() {
   //States for Category and restarurant
   const [selectedCategory, setCategory] = React.useState(null)
   const [selectedRestaurant, setRestaurant] = React.useState(null)
   const [selectedMenuItem, setMenuItem] = React.useState(null)
-  const [instructionState, setInstructionState] = React.useState("start")
 
   //Selecting a Chip
   const cateOnClick = (category) => {
     setMenuItem(null)
-    catebool = true
-    itembool = false
     setCategory(category)
-    instrOnClick()
   }
   const restOnClick = (restaurant) => {
     setMenuItem(null)
-    restbool = true
-    itembool = false
     setRestaurant(restaurant)
-    instrOnClick()
   }
   const itemOnClick = (item) => {
-    itembool = true
     setMenuItem(item)
-    instrOnClick()
   }
 
   //Deselecting a Chip
   const cateClose = () => {
-    catebool = false
-    itembool = false
     setMenuItem(null)
     setCategory(null)
-    instrOnClick()
   }
   const restClose = () => {
-    restbool = false
-    itembool = false
     setMenuItem(null)
     setRestaurant(null)
-    instrOnClick()
   }
   const itemClose = () => {
-    itembool = false
     setMenuItem(null)
-    instrOnClick()
-  }
-
-  //Setting Instruction state
-  const instrOnClick = () => {
-    if (catebool) {
-      if (restbool) {
-        //All are selected
-        if (itembool) {
-          setInstructionState("allSelected")
-        }
-        //Item has not been selected
-        else {
-          setInstructionState("noSelectedItem")
-        }
-      }
-      //Only category is selected
-      else {
-        setInstructionState("onlyCategory")
-      }
-    }
-    else {
-      //Only restaurant is selected
-      if (restbool) {
-        setInstructionState("onlyRestaurant")
-      }
-      //Nothing is selected
-      else {
-        setInstructionState("start")
-      }
-    }
   }
 
   const currentMenuItems = data.filter((item) => { return item.food_category == selectedCategory && item.restaurant == selectedRestaurant })
@@ -124,7 +72,7 @@ export function App() {
         {/* RESTAURANTS ROW */}
         <RestaurantsRow restaurants={restaurants} onClick={restOnClick} close={() => restClose()} selectedRestaurant={selectedRestaurant} />
 
-        <Instructions instructions={appInfo.instructions[instructionState]} />
+        <Instructions selectedCategory={selectedCategory} selectedRestaurant={selectedRestaurant} selectedMenuItem={selectedMenuItem} instructions={appInfo.instructions} />
 
         {/* MENU DISPLAY */}
         <MenuDisplay currentMenuItems={currentMenuItems} onClick={itemOnClick} close={() => itemClose()} selectedMenuItem={selectedMenuItem} />
