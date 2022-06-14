@@ -30,9 +30,10 @@
   top: 5px;
   right: 5px;
   font-size: 10px;
-  z-index: 10;
+  z-index: 100;
 }
 .chip.active .close {
   display: block;
-  z-index: 10;
+  z-index: 100;
 }
+

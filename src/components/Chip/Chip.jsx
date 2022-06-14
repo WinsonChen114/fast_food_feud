@@ -7,7 +7,8 @@ export function Chip({ label = "", isActive = false, onClick = () => {}, close =
   return (
     <button className={buttonClassName} onClick={onClick}>
       <p className="label">{label}</p>
-      <span className="close" role="button" tabIndex = "0" onClick={close}>{`X`}</span>
+      <span className="close" role="button" onClick={(event) => {close()
+                                                                event.stopPropagation()}}>{`X`}</span>
     </button>
   )
 }

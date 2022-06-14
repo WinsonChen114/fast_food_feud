@@ -43,7 +43,6 @@ export function App() {
     itembool = false
     setCategory(category)
     instrOnClick()
-    console.log("click fire")
   }
 
   const restOnClick = (restaurant) => {
@@ -96,7 +95,7 @@ export function App() {
     itembool = false
     setMenuItem(null)
     setCategory(null)
-    console.log("close fire")
+    instrOnClick()
   }
 
   const restClose = () => {
@@ -104,11 +103,13 @@ export function App() {
     itembool = false
     setMenuItem(null)
     setRestaurant(null)
+    instrOnClick()
   }
 
   const itemClose = () => {
     itembool = false
     setMenuItem(null)
+    instrOnClick()
   }
 
 
@@ -121,7 +122,7 @@ export function App() {
         <div className="categories options">
           <h2 className="title">Categories</h2>
           {categories.map((category) => (
-            <Chip label={category} key={category} onClick={() => cateOnClick(category)} close={() => cateClose} isActive={selectedCategory == category} />
+            <Chip label={category} key={category} onClick={() => cateOnClick(category)} close={() => cateClose()} isActive={selectedCategory == category} />
           ))}
         </div>
       </div>
@@ -135,7 +136,7 @@ export function App() {
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">
             {restaurants.map((restaurant) => (
-              <Chip label={restaurant} key={restaurant} onClick={() => restOnClick(restaurant)} close={() => restClose} isActive={selectedRestaurant == restaurant} />
+              <Chip label={restaurant} key={restaurant} onClick={() => restOnClick(restaurant)} close={() => restClose()} isActive={selectedRestaurant == restaurant} />
             ))}
           </div>
         </div>
@@ -147,7 +148,7 @@ export function App() {
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
             {currentMenuItems.map((item) => (
-              <Chip label={item.item_name} key={item.item_description} onClick={() => itemOnClick(item)} close={() => itemClose} isActive={selectedMenuItem && selectedMenuItem.item_name == item.item_name} />
+              <Chip label={item.item_name} key={item.item_description} onClick={() => itemOnClick(item)} close={() => itemClose()} isActive={selectedMenuItem && selectedMenuItem.item_name == item.item_name} />
             ))}
           </div>
 
