@@ -80,7 +80,7 @@ export function App() {
     instrOnClick()
   }
 
-  //Setting Instrction state
+  //Setting Instruction state
   const instrOnClick = () => {
     if (catebool) {
       if (restbool) {
