@@ -1,0 +1,31 @@
+h2.title {
+    font-size: 2.4rem;
+    font-weight: bold;
+    border-bottom: solid 8px black;
+    margin-bottom: 1rem;
+}
+
+.display {
+    flex: 1;
+    margin: 1rem auto 0;
+    background: white;
+    min-height: 300px;
+    box-shadow: 0 2px 4px (0, 0, 0, 0.3);
+    padding: 1em;
+    border: solid 8px black;
+    width: 100%;
+    display: flex;
+}
+
+.menu-items {
+    max-width: 600px;
+    flex: 1;
+}
+
+.nutrition-facts {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2rem;
+}

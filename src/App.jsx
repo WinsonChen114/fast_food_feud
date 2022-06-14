@@ -4,11 +4,10 @@ import { createDataSet } from "./data/dataset"
 import "./App.css"
 import Header from "./components/Header/Header.jsx"
 import Instructions from "./components/Instructions/Instructions.jsx"
-import Chip from "./components/Chip/Chip.jsx"
-import NutritionalLabel from "./components/NutritionalLabel/NutritionalLabel.jsx"
 import DataSource from "./components/DataSource/DataSource.jsx"
 import RestaurantsRow from "./components/RestaurantsRow/RestaurantsRow.jsx"
-import CategoryColumn from "./components/CategoryColumn/CategoryColumn"
+import CategoryColumn from "./components/CategoryColumn/CategoryColumn.jsx"
+import MenuDisplay from "./components/MenuDisplay/MenuDisplay.jsx"
 
 // don't move this!
 export const appInfo = {
@@ -121,29 +120,19 @@ export function App() {
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
-      <CategoryColumn categories = {categories} onClick={cateOnClick} close={() => cateClose()} selectedCategory = {selectedCategory}/>
+      <CategoryColumn categories={categories} onClick={cateOnClick} close={() => cateClose()} selectedCategory={selectedCategory} />
 
       {/* MAIN COLUMN */}
       <div className="container">
         <Header title={appInfo.title} tagline={appInfo.tagline} description={appInfo.description} />
 
         {/* RESTAURANTS ROW */}
-        <RestaurantsRow restaurants = {restaurants} onClick={restOnClick} close={() => restClose()} selectedRestaurant = {selectedRestaurant}/>
+        <RestaurantsRow restaurants={restaurants} onClick={restOnClick} close={() => restClose()} selectedRestaurant={selectedRestaurant} />
 
         <Instructions instructions={appInfo.instructions[instructionState]} />
 
         {/* MENU DISPLAY */}
-        <div className="MenuDisplay display">
-          <div className="MenuItemButtons menu-items">
-            <h2 className="title">Menu Items</h2>
-            {currentMenuItems.map((item) => (
-              <Chip label={item.item_name} key={item.item_description} onClick={() => itemOnClick(item)} close={() => itemClose()} isActive={selectedMenuItem && selectedMenuItem.item_name == item.item_name} />
-            ))}
-          </div>
-
-          {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">{selectedMenuItem ? <NutritionalLabel item={selectedMenuItem} /> : <></>}</div>
-        </div>
+        <MenuDisplay currentMenuItems={currentMenuItems} onClick={itemOnClick} close={() => itemClose()} selectedMenuItem={selectedMenuItem} />
 
         <DataSource dataSource={appInfo.dataSource} />
       </div>
